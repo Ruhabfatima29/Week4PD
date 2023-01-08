@@ -1,26 +1,28 @@
 #include<iostream>
+#include<windows.h>
 using namespace std;
 void maze();
 void gotoxy(int,int);
-printP(int x, int y);
+void printP(int x, int y);
 main()
 {
     system("cls");
     maze();
-    int x = 3;
-    int y = 3;
+    int x = 5;
+    int y = 5;
     while(true)
     {
     printP( x, y);
-    if (x < 30)
+    if (y < 10)
     {
-    x = x+1;
+    y = y+1;
     } 
-    if (x == 30)
+    if (y == 10)
     {
-    gotoxy(x-1,y);
-    cout << "" ;
-    x=3;
+    gotoxy(x,y-1);
+    cout << " " ;
+    y=5;
+    }
     }
 }
 void maze()
@@ -59,8 +61,9 @@ void gotoxy(int x, int y)
 }
 void printP(int x, int y)
 { 
-   gotoxy(x-1, y);
+   gotoxy(x, y-1);
    cout << " " ;
+   gotoxy(x,y);
    cout << "P" ;
    Sleep(500);
 }

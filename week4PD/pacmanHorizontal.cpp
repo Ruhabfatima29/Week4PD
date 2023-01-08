@@ -8,20 +8,20 @@ main()
 {
     system("cls");
     maze();
-    int x = 4;
-    int y = 4;
+    int x = 5;
+    int y = 5;
     while(true)
     {
     printP( x, y);
-    if (y < 10)
+    if (x < 15)
     {
-    y = y+1;
+    x = x+1;
     } 
-    if (y == 10)
+    if (x == 15)
     {
-    gotoxy(x,y-1);
-    cout << " " ;
-    y=4;
+    gotoxy(x-1,y);
+    cout << "" ;
+    x=5;
     }
     }
 }
@@ -61,9 +61,8 @@ void gotoxy(int x, int y)
 }
 void printP(int x, int y)
 { 
-   gotoxy(x, y-1);
+   gotoxy(x-1, y);
    cout << " " ;
-   gotoxy(x,y);
    cout << "P" ;
    Sleep(500);
 }

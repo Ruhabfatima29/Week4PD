@@ -1,16 +1,18 @@
 #include<iostream>
+#include<conio.h>
 using namespace std;
 void printMenu();
 void compareMarks(string name1 ,int ecatMarks1, string name2, int ecatMarks2);
 void calculateAggregate( string name,int matricMarks,int interMarks,int ecatMarks);
+
 main()
 {
   int choice;
   int space;
-  string name1 , name2;
-  int matricMarks1, matricMarks2;
-  int interMarks1,  interMarks2;
-  int ecatMarks1, ecatMarks2;
+  string name1  , name2;
+  float matricMarks1 = 0 , matricMarks2 = 0;
+  float interMarks1 = 0,  interMarks2 = 0;
+  float ecatMarks1 = 0, ecatMarks2 = 0 ;
   while(true)
  {
   system("cls");
@@ -29,13 +31,14 @@ main()
   cout << " Enter your ecat  marks (out of 400) : ";
   cin  >> ecatMarks1 ;
   cout << " Enter any key to continue.....  " << endl;
-  cin >> space;
+  getch();
+ 
   }
    if(choice == 3)
   {
   calculateAggregate(name1 , matricMarks1, interMarks1, ecatMarks1);
   cout << " Enter any key to continue.....  " << endl;
-  cin >> space;
+  getch();
   }
   if( choice == 2)
   { 
@@ -48,21 +51,21 @@ main()
   cout << " Enter your ecat  marks (out of 400) : ";
   cin  >> ecatMarks2 ;
   cout << " Enter any key to continue.....  " << endl;
-  cin >> space;
+  getch();
   }
   if( choice == 4 )
   {
   calculateAggregate(name2 ,matricMarks2,interMarks2 , ecatMarks2);
   cout << endl;
   cout << " Enter any key to continue.....  " << endl;
-  cin >> space;
+  getch();
   }
   if( choice == 5 )
   {
   compareMarks(name1 ,ecatMarks1, name2, ecatMarks2);
   cout << endl;
   cout << " Enter any key to continue.....  " << endl;
-  cin >> space;
+  getch();
   }
   }
 }
@@ -75,7 +78,7 @@ void printMenu()
    cout << endl << endl;
    cout << " WELCOME TO UET ADMISSION MANAGEMENT SYSTEM ";
    cout << endl << endl ;
-   cout << " Press 1 to enter the details of first : " << endl ; 
+   cout << " Press 1 to enter the details of first student: " << endl ; 
    cout << " Press 2 to enter the details of second student : " << endl ;
    cout << " Press 3 to calculate the aggregate for the first student : " << endl ;
    cout << " Press 4 to calculate the aggregate for the second student :" << endl ;
