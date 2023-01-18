@@ -9,10 +9,10 @@ void gotoxy(int x, int y);
 char getCharAtxy(short int x, short int y);
 void clear(int x, int y, char previous);
 void showGhost(int x, int y);
-
-
+void returnScore(int);
 main()
 {
+    int score = 0 , sum = 0 ;
     int x = 4;
     int y = 4;
     int gx = 3;
@@ -28,7 +28,7 @@ main()
     gotoxy(x, y);
     cout << "P";
     showGhost(gx, gy);
-    showGhost(x2 ,y2);
+    showGhost(x2, y2);
     while (gameRunning)
     {
         if (GetAsyncKeyState(VK_RIGHT))
@@ -39,9 +39,14 @@ main()
                 erasePacman(x, y);
                 x = x + 1;
                 printPacman(x, y);
+                if (nextLocation == '.')
+                {
+                    sum = sum + 5;
+                    returnScore(sum);
+                }
             }
         }
-        if (GetAsyncKeyState(VK_LEFT))
+        else if (GetAsyncKeyState(VK_LEFT))
         {
             char nextLocation = getCharAtxy(x - 1, y);
             if (nextLocation == ' ' || nextLocation == '.')
@@ -49,9 +54,14 @@ main()
                 erasePacman(x, y);
                 x = x - 1;
                 printPacman(x, y);
+                if (nextLocation == '.')
+                {
+                    sum = sum + 5;
+                    returnScore(sum);
+                }
             }
         }
-        if (GetAsyncKeyState(VK_UP))
+        else if (GetAsyncKeyState(VK_UP))
         {
             char nextLocation = getCharAtxy(x, y - 1);
             if (nextLocation == ' ' || nextLocation == '.')
@@ -59,9 +69,14 @@ main()
                 erasePacman(x, y);
                 y = y - 1;
                 printPacman(x, y);
+                if (nextLocation == '.')
+                {
+                    sum = sum + 5;
+                    returnScore(sum);
+                }
             }
         }
-        if (GetAsyncKeyState(VK_DOWN))
+        else if (GetAsyncKeyState(VK_DOWN))
         {
 
             char nextLocation = getCharAtxy(x, y + 1);
@@ -70,10 +85,15 @@ main()
                 erasePacman(x, y);
                 y = y + 1;
                 printPacman(x, y);
-            }
+                if (nextLocation == '.')
+                {
+                    sum = sum + 5;
+                    returnScore(sum);
+                }
             }
         }
-        if (GetAsyncKeyState(VK_ESCAPE))
+
+        else if (GetAsyncKeyState(VK_ESCAPE))
         {
             gameRunning = false;
         }
@@ -107,71 +127,69 @@ main()
                 gx = gx - 1;
                 previousChar = nextLocation;
                 showGhost(gx, gy);
-
             }
         }
-        if(direction2 == "up")
+        if (direction2 == "up")
         {
-        char nextLocation = getCharAtxy(x2,y2-1);
-        if(nextLocation == '%' || nextLocation == '#')
-        {
-            direction2 = "down";
+            char nextLocation = getCharAtxy(x2, y2 - 1);
+            if (nextLocation == '%' || nextLocation == '#')
+            {
+                direction2 = "down";
+            }
+            else if (nextLocation == ' ' || nextLocation == '.')
+            {
+                clear(x2, y2, previousChar);
+                y2 = y2 - 1;
+                previousChar = nextLocation;
+                showGhost(x2, y2);
+            }
         }
-        else if (nextLocation == ' ' || nextLocation == '.')
+        if (direction2 == "down")
         {
-        clear(x2, y2, previousChar);
-        y2 = y2 -1;
-        previousChar = nextLocation;
-        showGhost(x2,y2);
+            char nextLocation = getCharAtxy(x2, y2 + 1);
+            if (nextLocation == '%' || nextLocation == '#')
+            {
+                direction2 = "up";
+            }
+            else if (nextLocation == ' ' || nextLocation == '.')
+            {
+                clear(x2, y2, previousChar);
+                y2 = y2 + 1;
+                previousChar = nextLocation;
+                showGhost(x2, y2);
+            }
         }
-
-        } 
-         if(direction2 == "down")
-        {
-        char nextLocation = getCharAtxy(x2,y2+1);
-        if(nextLocation == '%' || nextLocation == '#')
-        {
-            direction2 = "up";
-        }
-        else if (nextLocation == ' ' || nextLocation == '.')
-        {
-        clear(x2, y2, previousChar);
-        y2 = y2 +1;
-        previousChar = nextLocation;
-        showGhost(x2,y2);
-        }
-
-        } 
-
     }
+}
+
 void printMaze()
 {
-    
-cout<<" ########################################################################   "<<endl;
-cout<<" ||.. ............................------....................... ...... ||   "<<endl;
-cout<<" ||.. %%%%%%%%%%%%%%%%%%%     ...       %%%%%%%%%%%%%%%%  |%|.. %%%%%  ||   "<<endl;
-cout<<" ||..          |%|    |%|  |%|...       |%|          |%|  |%|..   |%|  ||   "<<endl;
-cout<<" ||..          |%|    |%|  |%|...       |%|          |%|  |%|..   |%|  ||   "<<endl;
-cout<<" ||..          %%%%%%%%% ..|%|...       %%%%%%%%%%%%%%%%     .. %%%%%. ||   "<<endl;
-cout<<" ||..          |%|       ..|%|...      ................. |%| ..      . ||   "<<endl;
-cout<<" ||..          %%%%%%%%% ..|%|...      %%%%%%%%%%%%%%    |%| .. %%%%%. ||   "<<endl;
-cout<<" ||..                |%| .             |%|.......        |%| ..    |%|.||   "<<endl;
-cout<<" ||..     .......... |%| .             |%|.......|%|         ..    |%|.||   "<<endl;
-cout<<" ||..|%|  |%|%%%%|%|.|%| .|%|             .......|%|         ..|%| |%|.||   "<<endl;
-cout<<" ||..|%|  |%|    |%|..    %%%%%%%%%%%%%%  .......|%|          .|%|.    ||   "<<endl;
-cout<<" ||..|%|  |%|    |%|..           ....|%|     %%%%%%          . |%|.    ||   "<<endl;
-cout<<" ||..|%|             .           ....|%|                 |%| ..|%|.    ||   "<<endl;
-cout<<" ||..|%|  %%%%%%%%%%%%%%%        ....|%|%%%%%%%%%%%      |%| ..|%|%%%% ||   "<<endl;
-cout<<" ||................................................      |%| ......... ||   "<<endl;
-cout<<" ||   .............................................             ...... ||   "<<endl;
-cout<<" ||..|%|  |%|     |%|..    %%%%%%%%%%%%%    ....|%|      |%| ..|%|.    ||   "<<endl;
-cout<<" ||..|%|  |%|     |%|..          ....|%|      %%%%%      |%| ..|%|.    ||   "<<endl;
-cout<<" ||..|%|              .          ....|%|                 |%| ..|%|.    ||   "<<endl;
-cout<<" ||..|%|  %%%%%%%%%%%%%%%%       ....|%|%%%%%%%%%%       |%| ..|%|%%%%%||   "<<endl; 
-cout<<" ||.................................................     |%| ..........||   "<<endl;
-cout<<" ||  ...............................................            .......||   "<<endl;
-cout<<" ########################################################################   "<<endl;
-   }
+
+    cout << " ########################################################################   " << endl;
+    cout << " ||.. ............................------....................... ...... ||   " << endl;
+    cout << " ||.. %%%%%%%%%%%%%%%%%%%     ...       %%%%%%%%%%%%%%%%  |%|.. %%%%%  ||   " << endl;
+    cout << " ||..          |%|    |%|  |%|...       |%|          |%|  |%|..   |%|  ||   " << endl;
+    cout << " ||..          |%|    |%|  |%|...       |%|          |%|  |%|..   |%|  ||   " << endl;
+    cout << " ||..          %%%%%%%%% ..|%|...       %%%%%%%%%%%%%%%%     .. %%%%%. ||   " << endl;
+    cout << " ||..          |%|       ..|%|...      ................. |%| ..      . ||   " << endl;
+    cout << " ||..          %%%%%%%%% ..|%|...      %%%%%%%%%%%%%%    |%| .. %%%%%. ||   " << endl;
+    cout << " ||..                |%| .             |%|.......        |%| ..    |%|.||   " << endl;
+    cout << " ||..     .......... |%| .             |%|.......|%|         ..    |%|.||   " << endl;
+    cout << " ||..|%|  |%|%%%%|%|.|%| .|%|             .......|%|         ..|%| |%|.||   " << endl;
+    cout << " ||..|%|  |%|    |%|..    %%%%%%%%%%%%%%  .......|%|          .|%|.    ||   " << endl;
+    cout << " ||..|%|  |%|    |%|..           ....|%|     %%%%%%          . |%|.    ||   " << endl;
+    cout << " ||..|%|             .           ....|%|                 |%| ..|%|.    ||   " << endl;
+    cout << " ||..|%|  %%%%%%%%%%%%%%%        ....|%|%%%%%%%%%%%      |%| ..|%|%%%% ||   " << endl;
+    cout << " ||................................................      |%| ......... ||   " << endl;
+    cout << " ||   .............................................             ...... ||   " << endl;
+    cout << " ||..|%|  |%|     |%|..    %%%%%%%%%%%%%    ....|%|      |%| ..|%|.    ||   " << endl;
+    cout << " ||..|%|  |%|     |%|..          ....|%|      %%%%%      |%| ..|%|.    ||   " << endl;
+    cout << " ||..|%|              .          ....|%|                 |%| ..|%|.    ||   " << endl;
+    cout << " ||..|%|  %%%%%%%%%%%%%%%%       ....|%|%%%%%%%%%%       |%| ..|%|%%%%%||   " << endl;
+    cout << " ||.................................................     |%| ..........||   " << endl;
+    cout << " ||  ...............................................            .......||   " << endl;
+    cout << " ########################################################################   " << endl;
+}
 char getCharAtxy(short int x, short int y)
 {
     CHAR_INFO ci;
@@ -210,4 +228,12 @@ void showGhost(int x, int y)
 {
     gotoxy(x, y);
     cout << "G";
+}
+void returnScore(int score)
+{
+    int x, y;
+    x = 60;
+    y = 24;
+    gotoxy(x, y);
+    cout << "Score : " << score;
 }
